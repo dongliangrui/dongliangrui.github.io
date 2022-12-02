@@ -1,0 +1,622 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>人工智能 | 梦幻星语</title><meta name="author" content="DLR"><meta name="copyright" content="DLR"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第五章 不确定性推理不确定性推理概述 不确定性表现在证据、规则和推理三个方面，需要对专家系统中的事实与规则给出不确定性描述，并在此基础上建立不确定性的传递计算方法。 实现对不确定性知识的处理，要解决 不确定知识的表示问题 不确定信息的计算问题 不确定性表示 计算的语义解释问题    &#x3D;&#x3D;表示问题&#x3D;&#x3D;  规则不确定性 $(E→H，f(H，E))$， 证据不确定性 $(E，C(E))$  &#x3D;&#x3D;计算问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人工智能">
+<meta property="og:url" content="http://example.com/2022/12/02/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/index.html">
+<meta property="og:site_name" content="梦幻星语">
+<meta property="og:description" content="第五章 不确定性推理不确定性推理概述 不确定性表现在证据、规则和推理三个方面，需要对专家系统中的事实与规则给出不确定性描述，并在此基础上建立不确定性的传递计算方法。 实现对不确定性知识的处理，要解决 不确定知识的表示问题 不确定信息的计算问题 不确定性表示 计算的语义解释问题    &#x3D;&#x3D;表示问题&#x3D;&#x3D;  规则不确定性 $(E→H，f(H，E))$， 证据不确定性 $(E，C(E))$  &#x3D;&#x3D;计算问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2022-12-02T15:53:27.000Z">
+<meta property="article:modified_time" content="2022-12-02T15:54:03.910Z">
+<meta property="article:author" content="DLR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/12/02/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '人工智能',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-12-02 23:54:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/static/css/progress_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://www.fomal.cc/static/css/runtime.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/web/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">梦幻星语</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">人工智能</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-02T15:53:27.000Z" title="发表于 2022-12-02 23:53:27">2022-12-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-02T15:54:03.910Z" title="更新于 2022-12-02 23:54:03">2022-12-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="人工智能"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="第五章-不确定性推理"><a href="#第五章-不确定性推理" class="headerlink" title="第五章 不确定性推理"></a>第五章 不确定性推理</h1><h2 id="不确定性推理概述"><a href="#不确定性推理概述" class="headerlink" title="不确定性推理概述"></a>不确定性推理概述</h2><ul>
+<li>不确定性表现在<strong>证据</strong>、<strong>规则</strong>和<strong>推理</strong>三个方面，需要对专家系统中的事实与规则给出不确定性描述，并在此基础上建立不确定性的传递计算方法。</li>
+<li>实现对不确定性知识的处理，要解决<ul>
+<li>不确定知识的表示问题</li>
+<li>不确定信息的计算问题</li>
+<li>不确定性表示</li>
+<li>计算的语义解释问题</li>
+</ul>
+</li>
+</ul>
+<p>==<strong>表示问题</strong>==</p>
+<ul>
+<li>规则不确定性 $(E→H，f(H，E))$，</li>
+<li>证据不确定性 $(E，C(E))$</li>
+</ul>
+<p>==<strong>计算问题</strong>==</p>
+<ul>
+<li><p><strong>不确定性的传递算法</strong></p>
+<ul>
+<li>已知规则的前提$E$的不确定性$C(E)$和规则强度$f(H,E)$，求假设$H$的不确定性$C(H)$，即定义函数$f_1$，使得：$C(H)=f_1(C(E),f(H，E))$</li>
+</ul>
+</li>
+<li><p><strong>结论不确定性合成</strong></p>
+<ul>
+<li>已知由两个独立的证据$E_1$和$E_2$,求得的假设$H$的不确定性度量$C_1(H)$和$C_2(H)$，求证据$E_1$和$E_2$的组合导致的假设$H$的不确定性$C(H)$，即定义函数$f_2$，使得：<br>$C(H)=f_2(C_1(H),C_2(H))$ </li>
+</ul>
+</li>
+<li><p><strong>组合证据的不确定性算法</strong></p>
+<ul>
+<li><p>已知证据$E_1$和$E_2$的不确定性度量$C(E_1)$和$C(E_2)$，求证据$E_1$和$E_2$的析取和合取的不确定性，即定义函数$f_3$和$f_4$使得：</p>
+<script type="math/tex; mode=display">
+C(E_1∧E_2)=f_3(C(E_1),C(E_2))
+\\C(E_1∨E_2)=f_4(C(E_1),C(E_2))</script></li>
+<li><p>常用组合证据的不确定性的计算方法有3种：</p>
+<ul>
+<li>(a)<strong>最大最小法</strong><script type="math/tex; mode=display">
+C(E_1∧E_2)=min(C(E_1),C(E_2))
+\\C(E_1∨E_2)=max(C(E_1),C(E_2))</script></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>  (b)**概率方法**
+  $$
+  C(E_1∧E_2)=C(E_1)×C(E_2)
+  \\C(E_1∨E_2)= C(E_1)+C(E_2)-C(E_1)×C(E_2)
+  $$
+  (c)**有界方法**
+  $$
+  C(E_1∧E_2)=max\&#123;0,C(E_1)+C(E_2)-1\&#125;
+  \\C(E_1∨E_2)=min\&#123;1,C(E_1)+C(E_2)\&#125; 
+  $$
+</code></pre><p>==<strong>语义问题</strong>==</p>
+<ul>
+<li>语义问题指上述表示和计算的含义是什么。如$C(H,E)$可理解为当前提$E$为真时，对结论$H$为真的一种影响程度，$C(E)$可理解为$E$为真的程度。</li>
+<li>处理不确定性问题的主要数学工具:<ul>
+<li>概率论</li>
+<li>模糊数学</li>
+</ul>
+</li>
+</ul>
+<h2 id="概率方法"><a href="#概率方法" class="headerlink" title="概率方法"></a>概率方法</h2><p>==<strong>全概率公式</strong>：==</p>
+<script type="math/tex; mode=display">
+{\color{red} P\left( B \right) =\sum_{i=1}^n{P\left( A_i \right) \times P\left( B|A_i \right)}}</script><p>==<strong>贝叶斯公式：</strong>==</p>
+<script type="math/tex; mode=display">
+{\color{red} P\left( A_i|B \right) =\frac{P\left( A_i \right) \times P\left( B|A_i \right)}{P\left( B \right)}\,\,\left( i=1,2,...n \right) }
+\\
+{\color{red} P\left( A_i|B \right) =\frac{P\left( A_i \right) \times P\left( B|A_i \right)}{\sum_{j=1}^n{P\left( A_j \right) \times P\left( B|A_j \right)}}\,\,\left( i=1,2,...n \right) }</script><h3 id="逆概率方法"><a href="#逆概率方法" class="headerlink" title="逆概率方法"></a>逆概率方法</h3><p>对于产生式规则</p>
+<script type="math/tex; mode=display">
+IF \quad E \quad THEN\quad H_i \; (i=1,2,...,n)</script><p>可得</p>
+<script type="math/tex; mode=display">
+{\color{red} P\left( H_i|E \right) =\frac{P\left( H_i \right) \times P\left( E|H_i \right)}{\sum_{j=1}^n{P\left( H_j \right) \times P\left( E|H_j \right)}}\,\,\left( i=1,2,...n \right) }</script><p><strong>多个证据</strong>的情况：</p>
+<script type="math/tex; mode=display">
+{\color{red} P\left( H_i|E_1,E_2,...,E_m \right) =\frac{P\left( H_i \right) P\left( E_1|H_i \right) P\left( E_2|H_i \right) \cdot \cdot \cdot P\left( H_i \right) P\left( E_m|H_i \right)}{\sum_{j=1}^n{P\left( H_j \right) P\left( E_1|H_j \right)}P\left( E_2|H_i \right) \cdot \cdot \cdot P\left( H_i \right) P\left( E_m|H_i \right)}\,\,\left( i=1,2,...n \right) }</script><h2 id="主观贝叶斯方法"><a href="#主观贝叶斯方法" class="headerlink" title="主观贝叶斯方法"></a>主观贝叶斯方法</h2><h3 id="规则的不确定性表示"><a href="#规则的不确定性表示" class="headerlink" title="规则的不确定性表示"></a>规则的不确定性表示</h3><p>主观贝叶斯方法中，规则的不确定性表示为：</p>
+<script type="math/tex; mode=display">
+\color{red}
+IF \quad E\quad THEN(LS,LN) \quad H</script><p>LS充分性度量：${\color{red} LS=\frac{P\left( E|H \right)}{P\left( E|\lnot H \right)}}$</p>
+<p>LN必要性度量：${\color{red} LN=\frac{P\left( \lnot E|H \right)}{P\left( \lnot E|\lnot H \right)}=\frac{1-P\left( E|H \right)}{1-P\left( E|\lnot H \right)}}$</p>
+<p>几率函数：</p>
+<script type="math/tex; mode=display">
+{\color{red} O\left( X \right) =\frac{P\left( X \right)}{1-P\left( X \right)}}</script><p>带入可得</p>
+<script type="math/tex; mode=display">
+充分似然性：{\color{red} O\left( H|E \right) =LS\times O\left( H \right) }\\
+必要似然性：{\color{red} O\left( H|\lnot E \right) =LN\times O\left( H \right) }</script><p>==<strong>LS的性质</strong>==</p>
+<ul>
+<li>当 $LS&gt;1$ 时， $O(H|E)&gt;O(H)$ ，说明 $E$ 支持 $H$，$LS$ 越大， $O(H|E)$ 比 $O(E)$ 大得越多,即 $LS$ 越大，$E$ 对 $H$ 的支持越充分。当 $LS→ ∞$ 时， $O(H|E) → ∞$ ，即 $P(H|E)→1$ ，表示$E$ 的存在将导致 $H$ 为真。</li>
+<li>当 $LS=1$ 时， $O(H|E)=O(H)$ ,说明 $E$ 对 $H$ 没有影响。</li>
+<li>当 $LS&lt;1$ 时，$O(H|E)&lt;O(H)$ ，说明 $E$ 不支持 $H$。</li>
+<li>当 $LS=0$ 时， $O(H|E)=0 $ ，说明 $E$ 的存在使 $H$ 为假。</li>
+<li>由上述分析可以看出，$LS$ 反映的是 $E$ 的出现对 $H$ 为真的影响程度，因此 LS 被称为知识的充分性度量。</li>
+</ul>
+<p>==<strong>LN 的性质</strong>==</p>
+<ul>
+<li>当 $LN&gt;1$ 时， $O(H|¬E)&gt;O(H)$ ，说明 $¬E$ 支持 $H$，即由于 $E$ 的<strong>不出现</strong>，增大了 $H$ 为真的概率。并且，$LN$ 越大， $P(H|¬E)$越大，即 $¬E$ 对 $H$ 为真的支持越强。当 $LN → ∞$ 时，$O(H|¬ E) → ∞$ ，即 $P(H|¬E)→1$ ，表示 $¬E$ 的存在将导致 $H$ 为真。  </li>
+<li>当 $LN=1$ 时，$O(H|¬E)=O(H)$ ，说明 $¬E$ 对 $H$ 没有影响。<br>当 $LN&lt;1$ 时，$O(H|¬E)&lt;O(H)$，说明 $¬E$ 不支持 $H$，即 $¬E$ 的存在使 $H$ 为真的可能性下降，或者说由于 E 不存在，将反对 H 为真。当 $LN →0$ 时， $O(H|¬E) → 0$ ，即 $LN$ 越小，$E$ 的不出现就越反对 $H$ 为真，这说明 $H$ 越需要 $E$ 的出现。</li>
+<li>当 $LN=0$ 时， $O (H| ¬ E)= 0$ ，说明 $¬E$ 的存在（即 $E$ 不存在）将导致 $H$ 为假。</li>
+<li>由上述分析可以看出，$LN$ 反映的是 $E$ 不存在时对 $H$ 为真的影响程度，因此 $LN$ 被<br>称为知识的必要性度量。  </li>
+</ul>
+<p><strong>==LS 与 LN 的关系==</strong><br>由于 $E$ 和 $¬E$ 不会同时支持或同时排斥 $H$，因此只有下述 3 种情况存在：</p>
+<ul>
+<li>$LS &gt;1$ 且 $LN&lt;1$ ；</li>
+<li>$LS<1$ 且 $LN>1$ ；</li>
+<li>$LS=LN=1$ 。  </li>
+</ul>
+<h3 id="证据的不确定性表示"><a href="#证据的不确定性表示" class="headerlink" title="证据的不确定性表示"></a>证据的不确定性表示</h3><ul>
+<li>$P(E)$就是证据$E$的先验似然性，$P(E|S)$是已知全证据$E$中部分知识$S$后对$E$的信任，为$E$的后验似然性。</li>
+</ul>
+<blockquote>
+<p><strong>==组合证据的不确定性计算==</strong></p>
+<blockquote>
+<p>当组合证据是多个单一证据的<strong>合取</strong>时</p>
+<ul>
+<li>${\color{red} E=E_1\,\,AND\,\,E_2\,\,AND\,\,… AND\,\,E_n}$</li>
+<li>如果已知在当前观察 $S$下，每个单一证据 $E_i$有概率${\color{red} P\left( E_1|S \right) \text{、}P\left( E_2|S \right) \text{、}…\text{、}P\left( E_n|S \right) }$，则${\color{red} P\left( E|S \right) =\min \left\{ P\left( E_1|S \right) \text{、}P\left( E_2|S \right) \text{、}…\text{、}P\left( E_n|S \right) \right\} }$</li>
+</ul>
+<p>当组合证据是多个单一证据的<strong>析取</strong>时</p>
+<ul>
+<li>${\color{red} E=E_1\,\,OR\,\,E_2\,\,OR\,\,… OR\,\,E_n}$ </li>
+<li>如果已知在当前观察 S下，每个单一证据 $E_i$有概率${\color{red} P\left( E_1|S \right) \text{、}P\left( E_2|S \right) \text{、}…\text{、}P\left( E_n|S \right) }$, 则${\color{red} P\left( E|S \right) =\max \left\{ P\left( E_1|S \right) \text{、}P\left( E_2|S \right) \text{、}…\text{、}P\left( E_n|S \right) \right\} }$</li>
+</ul>
+<p>对于“非”运算，用下式计算:</p>
+<ul>
+<li>$P(┐E|S)=1-P(E|S)$</li>
+</ul>
+</blockquote>
+</blockquote>
+<h3 id="不确定性推理"><a href="#不确定性推理" class="headerlink" title="不确定性推理"></a>不确定性推理</h3><blockquote>
+<p><strong>==证据$E$肯定为真时==</strong>，即$P(E)=P(E|S)=1$</p>
+<blockquote>
+<script type="math/tex; mode=display">
+{\color{red} O\left( H|E \right) =LS\times O\left( H \right) }
+\\
+{\color{red} P\left( H|E \right) =\frac{LS\times P\left( H \right)}{\left( LS-1 \right) \times P\left( H \right) +1}}</script></blockquote>
+<p><strong>==证据$E$肯定为假时==</strong>，即$P(E)=P(E|S)=0$</p>
+<blockquote>
+<script type="math/tex; mode=display">
+{\color{red} O\left( H|\lnot E \right) =LN\times O\left( H \right) }
+\\
+{\color{red} P\left( H|\lnot E \right) =\frac{LN\times P\left( H \right)}{\left( LN-1 \right) \times P\left( H \right) +1}}</script></blockquote>
+<p><strong>==证据$E$既非真又非假时==</strong></p>
+<blockquote>
+<script type="math/tex; mode=display">
+{\color{red} P\left( H|S \right) =P\left( H|E \right) \times P\left( E|S \right) +P\left( H|\lnot E \right) \times P\left( \lnot E|S \right) }</script></blockquote>
+</blockquote>
+<h3 id="结论不确定的合成算法"><a href="#结论不确定的合成算法" class="headerlink" title="结论不确定的合成算法"></a>结论不确定的合成算法</h3><script type="math/tex; mode=display">
+{\color{red} O\left( H|S_1,S_2,...,S_n \right) =\frac{O\left( H|S_1 \right)}{O\left( H \right)}\times \frac{O\left( H|S_2 \right)}{O\left( H \right)}\times ...\times \frac{O\left( H|S_n \right)}{O\left( H \right)}\times O\left( H \right) }</script><h2 id="确定性推论"><a href="#确定性推论" class="headerlink" title="确定性推论"></a>确定性推论</h2><h3 id="可信度⭐"><a href="#可信度⭐" class="headerlink" title="可信度⭐"></a>可信度⭐</h3><h4 id="可信度定义"><a href="#可信度定义" class="headerlink" title="可信度定义"></a>可信度定义</h4><p>在C-F模型中，可信度最初定义为信任与不信任的差，即$CF(H,E)$定义为</p>
+<script type="math/tex; mode=display">
+CF(H,E)=MB(H,E)−MD(H,E)</script><ul>
+<li><p>$CF$由证据$E$得到假设$H$的可信度（也称为确定性因子）</p>
+</li>
+<li><p>$MB$(Measure Belief,MB)称为信任增长度，它表示因为与前提条件$E$匹配的证据的出现,使结论$H$为真的信任的增长程度。</p>
+<script type="math/tex; mode=display">
+{\color{red} MB\left( H,E \right) =\left\{ \begin{array}{c}
+    1,P\left( H \right) =1\\
+    \frac{\max \left\{ P\left( H|E \right) ,P\left( H \right) \right\} -P\left( H \right)}{1-P\left( H \right)},\text{其他}\\
+\end{array} \right. }
+\\
+{\color{red} MD\left( H,E \right) =\left\{ \begin{array}{c}
+    1,P\left( H \right) =0\\
+    \frac{\min \left\{ P\left( H|E \right) ,P\left( H \right) \right\} -P\left( H \right)}{-P\left( H \right)},\text{其他}\\
+\end{array} \right. }</script></li>
+<li><p>$MD$(Measure Disbelief,MD)称为不信任增长度，它表示因为与前提条件$E$匹配的证据的出现，对结论$H$的不信任的增长程度。</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+{\color{red} CF\left( H,E \right) =\left\{ \begin{array}{c}
+    MB\left( H,E \right) -0=\frac{P\left( H|E \right) -P\left( H \right)}{1-P\left( H \right)}\,\, P\left( H|E \right) >P\left( H \right)\\
+    0 \quad P\left( H|E \right) =P\left( H \right)\\
+    0-MD\left( H,E \right) =-\frac{P\left( H \right) -P\left( H|E \right)}{P\left( H \right)}\,\, P\left( H|E \right) <P\left( H \right)\\
+\end{array} \right. }</script><h4 id="可信度的性质⭐"><a href="#可信度的性质⭐" class="headerlink" title="可信度的性质⭐"></a>可信度的性质⭐</h4><blockquote>
+<p><strong>互斥性</strong></p>
+<blockquote>
+<ul>
+<li>对同一证据，它不可能既增加对H的信任程度，又同时增加对H的不信任程度，这说明MB与MD是互斥的。即有如下互斥性：</li>
+<li>当$MB(H,E)&gt;0$时，$MD(H,E)=0$</li>
+<li>当$MD(H,E)&gt;0$时，$MB(H,E)=0$</li>
+</ul>
+</blockquote>
+<p><strong>值域</strong></p>
+<blockquote>
+<ul>
+<li><p>$0≤MB(H,E)≤1$</p>
+</li>
+<li><p>$0≤MD(H,E)≤1$</p>
+</li>
+<li>$-1≤CF(H,E)≤1$</li>
+</ul>
+</blockquote>
+<p><strong>典型值</strong></p>
+<blockquote>
+<ul>
+<li><p>当$CF(H,E)=1$时，有$P(H|E)=1$，它说明由于$E$所对应证据的出现使$H$为真。此时</p>
+<script type="math/tex; mode=display">
+MB(H,E)=1,MD(H,E)=0</script></li>
+<li><p>当$CF(H,E)=-1$时，有$P(H|E)=0$，说明由于$E$所对应证据的出现使H为假。此时</p>
+<script type="math/tex; mode=display">
+MB(H,E)=0,MD(H,E)=1</script></li>
+<li><p>当$CF(H,E)=0$时，则$P(H|E)=P(H)$，表示$H$与$E$独立，即$E$所对应的证据的出现对$H$没有影响</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>对H的信任增长度等于对非H的不信任增长度</strong></p>
+<blockquote>
+<script type="math/tex; mode=display">
+{\color{red} MD\left( \lnot H,E \right) =MB\left( H,E \right) }</script></blockquote>
+<p><strong>对H的可信度与对非H的可信度之和等于0</strong></p>
+<blockquote>
+<script type="math/tex; mode=display">
+{\color{red} CF\left( H,E \right) +CF\left( \lnot H,E \right) =0}</script></blockquote>
+<p><strong>可信度不是概率</strong></p>
+<p><strong>对同一前提$E$，若支持若干个不同的结论$H_i (i=1，2，…，n)$</strong></p>
+<blockquote>
+<script type="math/tex; mode=display">
+{\color{red} \sum_{i=1}^n{CF\left( H_i,E \right) \leqslant 1}}</script></blockquote>
+</blockquote>
+<h3 id="CF模型"><a href="#CF模型" class="headerlink" title="CF模型"></a>CF模型</h3><h4 id="规则的不确定性表示-1"><a href="#规则的不确定性表示-1" class="headerlink" title="规则的不确定性表示"></a>规则的不确定性表示</h4><script type="math/tex; mode=display">
+IF \quad E \quad THEN \quad H\quad(CF(H,E))</script><p>其中，$E$ 是规则的前提条件，$H$ 是规则的结论， $CF(H, E)$ 是规则的可信度，也称为规则强度，它描述的是知识的静态强度。</p>
+<h4 id="组合证据的不确定性计算"><a href="#组合证据的不确定性计算" class="headerlink" title="组合证据的不确定性计算"></a>组合证据的不确定性计算</h4><script type="math/tex; mode=display">
+{\color{red} \text{合取}\land \text{：}CF\left( E \right) =\min \left\{ CF\left( E_1 \right) ,CF\left( E_2 \right) ,...,CF\left( E_n \right) \right\} }
+\\
+{\color{red} \text{析取}\lor \text{：}CF\left( E \right) =\max \left\{ CF\left( E_1 \right) ,CF\left( E_2 \right) ,...,CF\left( E_n \right) \right\} }</script><h4 id="不确定性的推理"><a href="#不确定性的推理" class="headerlink" title="不确定性的推理"></a>不确定性的推理</h4><script type="math/tex; mode=display">
+{\color{red} CF\left( H \right) =CF\left( H,E \right) \times \max \left\{ 0,CF\left( E \right) \right\} }</script><p><strong>多个证据组合</strong>的情况：</p>
+<script type="math/tex; mode=display">
+{\color{red} CF\left( H \right) =\left\{ \begin{array}{c}
+    CF_1\left( H \right) +CF_2\left( H \right) -CF_1\left( H \right) \times CF_2\left( H \right) ,CF_1\left( H \right) \geqslant 0,CF_2\left( H \right) \geqslant 0\\
+    CF_1\left( H \right) +CF_2\left( H \right) +CF_1\left( H \right) \times CF_2\left( H \right) ,CF_1\left( H \right) <0,CF_2\left( H \right) <0\\
+    CF_1\left( H \right) +CF_2\left( H \right) ,CF_1\left( H \right) \text{与}CF_2\left( H \right) \text{异号}\\
+\end{array} \right. }</script><p>如果$CF_1(H)与CF_2(H)$异号，则：</p>
+<script type="math/tex; mode=display">
+{\color{red} CF\left( H \right) =\frac{CF_1\left( H \right) +CF_2\left( H \right)}{1-\min \left\{ \left| CF_1\left( H \right) \right|,\left| CF_2\left( H \right) \right| \right\}}}</script><blockquote>
+<p>例：</p>
+<ul>
+<li><img src="D:/文档/md文件/人工智能导论/第五章 不确定性推理.assets/image-20220630214317123.png" alt="image-20220630214317123"></li>
+<li><img src="D:/文档/md文件/人工智能导论/第五章 不确定性推理.assets/image-20220630214331700.png" alt="image-20220630214331700"></li>
+</ul>
+<p>答案：</p>
+<ul>
+<li>$CF(H_1)=0.9,CF(H_2)=0.72$</li>
+<li>$CF(H)=0.53$</li>
+</ul>
+</blockquote>
+<h4 id="确定性方法的说明"><a href="#确定性方法的说明" class="headerlink" title="确定性方法的说明"></a>确定性方法的说明</h4><p>确定性理论的<strong>优点</strong>如下：</p>
+<ul>
+<li>① 确定性理论具有简洁、直观的优点。通过简单的计算，不确定性就可以在系统中传播，并且计算具有线性的复杂度，推理的近似效果也比较理想。</li>
+<li>② 确定性理论也很容易理解，并且将不信任和信任清楚地区分开来。</li>
+</ul>
+<p>其<strong>缺点</strong>如下：</p>
+<ul>
+<li>① CF 值可能与条件概率得出的值相反。如果一种疾病具有很高的条件概率，却有很低的 CF 值，则可能产生矛盾。</li>
+<li>② 通常${\color{red} P\left( H|E \right) \ne P\left( H|S \right) \times P\left( S|E \right) }$其中，$S$ 是基于证据 $E$ 的某些中间假设。但在推理链中的两条规则的 CF 却是作为独立概率计算的：${\color{red} CF\left( H,E \right) =CF\left( H,S \right) \times CF\left( S,E \right) }$</li>
+<li>③ MYCIN 一般<strong>应用于短推理链</strong>，而且假设简单的问题中。如果把该方法应用于不具备短推理链、简单假设的领域，则可能出问题。</li>
+<li>④ 由于可能导致计算的累计误差，如果多个规则逻辑等价于一个规则，则采用一个规则和多个规则计算的 <strong>CF 值可能不相同</strong>。</li>
+<li>⑤ 组合规则使用的顺序不同，可能得出<strong>不同的结果</strong>。  </li>
+</ul>
+<h2 id="证据理论"><a href="#证据理论" class="headerlink" title="证据理论"></a>证据理论</h2><h3 id="证据理论的形式描述"><a href="#证据理论的形式描述" class="headerlink" title="证据理论的形式描述"></a>证据理论的形式描述</h3><h4 id="概率分配函数"><a href="#概率分配函数" class="headerlink" title="概率分配函数"></a>概率分配函数</h4><p><strong>定义</strong></p>
+<blockquote>
+<p>设函数$m:2^\Omega \rightarrow[0,1]$，且满足</p>
+<script type="math/tex; mode=display">
+{\color{red} m\left( \emptyset \right) =0}
+\\
+{\color{red} \sum_{A\subseteq \Omega}{m\left( A \right) =1}}</script><p>则称 $m$ 是 $2^Ω$ 上的概率分配函数，$m(A)$ 称为 $A$ 的基本概率数。$m(A)$ 表示依据当前的环境对假设集 A 的信任程度。</p>
+</blockquote>
+<h4 id="信任函数"><a href="#信任函数" class="headerlink" title="信任函数"></a>信任函数</h4><p><strong>定义信任函数（Belief Function）</strong></p>
+<blockquote>
+<script type="math/tex; mode=display">
+{\color{red} Bel:2^{\Omega}→\left[ 0,1 \right] }</script><p>对任意的 A 包含于 Ω，有  </p>
+<script type="math/tex; mode=display">
+{\color{red} Bel\left( A \right) =\sum_{B\subseteq A}{m\left( B \right)}}</script></blockquote>
+<p>$Bel( A)$ 表示当前环境下，对假设集 A 的信任程度，其值为 A 的所有子集的基本概率之和，表示对 A 的总的信任度。当 A 为单一元素组成的集合时，$Bel(A)=m(A)$ ，因此 $Bel( A)$又称为<strong>下限函数</strong>。</p>
+<h4 id="似然函数"><a href="#似然函数" class="headerlink" title="似然函数"></a>似然函数</h4><p><strong>定义似然函数（Plausibility Function）</strong></p>
+<blockquote>
+<script type="math/tex; mode=display">
+{\color{red} Pl:2^{\Omega}→\left[ 0,1 \right] }</script><p>对任意的 A 包含于 Ω，有  </p>
+<script type="math/tex; mode=display">
+\color{red}Pl(A)=1-Bel(\neg A)</script></blockquote>
+<p>似然函数又称为<strong>不可驳斥函数</strong>或<strong>上限函数</strong>。由于 $Bel(A)$ 表示对 A 为真的信任度，<br>$Bel(¬A)$ 表示对 ¬A的信任度，即 A 为假的信任度，因此 $Pl(A)$ 表示对 A 为非假的信任度。</p>
+<h4 id="信任函数和似然函数的性质"><a href="#信任函数和似然函数的性质" class="headerlink" title="信任函数和似然函数的性质"></a>信任函数和似然函数的性质</h4><ul>
+<li>${\color{red} Bel\left( \emptyset \right) =0,Bel\left( \Omega \right) =1,Pl\left( \emptyset \right) =0,Pl\left( \Omega \right) =1}$</li>
+<li>② 如果 A ⊆ B ，则${\color{red} Bel\left( A \right) \leqslant Bel\left( B \right) ,Pl\left( A \right) \leqslant Pl\left( B \right) }$。</li>
+<li>③${\color{red} \forall A\subseteq \Omega ,Pl\left( A \right) \geqslant Bel\left( A \right) }$ </li>
+<li>④ ${\color{red} \forall A\subseteq \Omega ,Bel\left( A \right) +Bel\left( \lnot A \right) \leqslant 1,Pl\left( A \right) +Pl\left( \lnot A \right) \geqslant 1}$ </li>
+<li>由于 $Bel(A)$ 和 $Pl(A)$ 分别表示 A 为真的信任度和 A 为非假的信任度，因此可分别称 $Bel(A)$  和  $Pl(A)$ 为对 A 信任程度的下限和上限，记为$A[Bel(A),Pl(A)]$ </li>
+<li>$Pl(A)- Bel(A)$ 表示既不信任 A 也不信任 ¬A的程度，即对于 A 是真是假不知道的程度。</li>
+</ul>
+<h4 id="概率分配函数的正交和"><a href="#概率分配函数的正交和" class="headerlink" title="概率分配函数的正交和"></a>概率分配函数的正交和</h4><blockquote>
+<p>设$m_1$和$m_2$是两个不同的概率分配函数，则其正交和$m=m_1\oplus m_2$满足</p>
+<script type="math/tex; mode=display">
+{\color{red} m\left( \emptyset \right) =0}
+\\
+{\color{red} m\left( A \right) =K^{-1}\times \sum_{x\cap y=A}{m_1\left( x \right) \times m_2\left( y \right)}}</script><p>其中：</p>
+<script type="math/tex; mode=display">
+{\color{red} K=1-\sum_{x\cap y=\emptyset}{m_1\left( x \right) \times m_2\left( y \right) =\sum_{x\cap y\ne \emptyset}{m_1\left( x \right) \times m_2\left( y \right)}}}</script><p>例题：</p>
+<p><img src="D:/文档/md文件/人工智能导论/第五章 不确定性推理.assets/image-20220630231603361.png" alt="image-20220630231603361"></p>
+<p>答案：</p>
+<p>${\color{red} m\left( \emptyset ,\left\{ a \right\} ,\left\{ b \right\} ,\left\{ a,b \right\} \right) =\left( 0,0.43,0.54,0.03 \right) }$</p>
+</blockquote>
+<h3 id="证据理论的推理模型"><a href="#证据理论的推理模型" class="headerlink" title="证据理论的推理模型"></a>证据理论的推理模型</h3><p>特殊的概率分配函数</p>
+<blockquote>
+<p>设${\color{red} \Omega =\left\{ s_1,s_2,…,s_n \right\} }$，$m$为定义在$2^\Omega$上的概率分配函数，且$m$满足：</p>
+<blockquote>
+<p>${\color{red} m\left( \left\{ s_{\mathrm{i}} \right\} \right) \geqslant 0}$，对任意${\color{red} \mathrm{s}_{\mathrm{i}}\in \Omega }$</p>
+<p>${\color{red} \sum_{i=1}^n{m\left( \left\{ s_i \right\} \right) \leqslant 1}}$</p>
+<p>${\color{red} m\left( \Omega \right) =1-\sum_{i=1}^n{m\left( \left\{ s_i \right\} \right)}}$</p>
+<p>当${\color{red} A\subset \Omega }$，且|A|&gt;1或|A|=0时，${\color{red} m\left( A \right) =0}$。</p>
+</blockquote>
+<p>这里定义的是一个特殊的概率分配函数，只有当子集中的元素个数为 1 时，其概率分配函数才有可能大于 0；当子集中有多个或空集且不等于全集时，其概率分配函数均为 0；全集 Ω 的概率分配函数由第③式计算</p>
+<script type="math/tex; mode=display">
+{\color{red} Bel\left( \Omega \right) =1}
+\\
+{\color{red} Pl\left( \Omega \right) =1}
+\\
+{\color{red} Pl\left( A \right) -Bel\left( A \right) =m\left( \Omega \right) }</script></blockquote>
+<h4 id="类概率函数"><a href="#类概率函数" class="headerlink" title="类概率函数"></a>类概率函数</h4><script type="math/tex; mode=display">
+{\color{red} f\left( A \right) =Bel\left( A \right) +\frac{\left| A \right|}{\left| \Omega \right|}\left( Pl\left( A \right) -Bel\left( A \right) \right) }</script><p>类概率函数具有以下性质：</p>
+<ul>
+<li><p>$ f(\phi)=0, f(\Omega)=1 $</p>
+</li>
+<li><p>$ 0 \leqslant f(A) \leqslant 1, \quad \forall A \subseteq \Omega $</p>
+</li>
+<li>$ \operatorname{Bel}(A) \leqslant f(A) \leqslant \operatorname{Pl}(A), \quad \forall A \subseteq \Omega $</li>
+<li>$ f(\neg A)=1-f(A), \quad \forall A \subseteq \Omega $</li>
+</ul>
+<h3 id="证据的不确定性表示-1"><a href="#证据的不确定性表示-1" class="headerlink" title="证据的不确定性表示"></a>证据的不确定性表示</h3><p>在证据理论中, 规则的不确定性可表示为:</p>
+<script type="math/tex; mode=display">
+\text { IF } \quad E\quad  \text { THEN } \quad H, \text { CF }</script><p>其中, $ H $ 为假设, $ E $ 为支持 $ H $ 成立的假设集, 它们是命题的逻辑组合。CF 为可信度因子。 $ H=\left\{a_{1}, a_{2}, \cdots, a_{m}\right\}, a_{i} \in \Omega(i=1,2, \cdots, m), H $ 为假设集合 $ \Omega $ 的子集。</p>
+<p>$ \mathrm{CF}=\left\{c_{1}, c_{2}, \cdots, c_{m}\right\}, c_{i} $ 用来描述前提 $ E $ 成立时 $ a_{i} $ 的可信度。 $ \mathrm{CF} $ 应满足如下条件:</p>
+<ul>
+<li>$ c_{i} \geqslant 0,1 \leqslant i \leqslant m $</li>
+<li>$ \sum_{i=1}^{m} c_{i} \leqslant 1 $</li>
+</ul>
+<blockquote>
+<p>对于不确定性推理，定义为</p>
+<script type="math/tex; mode=display">
+\color{red}m\left(\left\{a_{i}\right\}\right)=f(E) c_{i} \quad(i=1,2, \cdots, m)</script><p>或表示为</p>
+<script type="math/tex; mode=display">
+\color{red}m\left(\left\{a_{1}\right\},\left\{a_{2}\right\}, \cdots,\left\{a_{m}\right\}\right)=\left(f(E) c_{1}, f(E) c_{2}, \cdots, f(E) c_{m}\right)</script><p>规定：</p>
+<script type="math/tex; mode=display">
+\color{red}m(\Omega)=1-\sum_{i=1}^{m} m\left(\left\{a_{i}\right\}\right)</script><p>而对于 $ \Omega $ 的所有其他子集 $ H $, 均有 $ m(H)=0 $ 。<br>当 $ H $ 为 $ \Omega $ 的真子集时, 有</p>
+<script type="math/tex; mode=display">
+\color{red}\operatorname{Bel}(H)=\sum_{B \subseteq H} m(B)=\sum_{i=1}^{m} m\left(\left\{a_{i}\right\}\right)</script><p>进一步可以计算 $ \mathrm{Pl}(H) $ 和 $ f(H) $ 。</p>
+</blockquote>
+<h4 id="组合证据的不确定性计算-1"><a href="#组合证据的不确定性计算-1" class="headerlink" title="组合证据的不确定性计算"></a>组合证据的不确定性计算</h4><p>定义：</p>
+<blockquote>
+<script type="math/tex; mode=display">
+\color{red}{f\left(E_{1} \wedge E_{2} \wedge \cdots \wedge E_{n}\right)=\min \left\{f\left(E_{1}\right), f\left(E_{2}\right), \cdots, f\left(E_{n}\right)\right\} }\\
+\color{red}{
+f\left(E_{1} \vee E_{2} \vee \cdots \vee E_{n}\right)=\max \left\{f\left(E_{1}\right), f\left(E_{2}\right), \cdots, f\left(E_{n}\right)\right\} }</script></blockquote>
+<p>当有<strong>多条规则支</strong>持同一结论时, 如果 $ H=\left\{a_{1}, a_{2}, \cdots, a_{n}\right\} $, 则</p>
+<blockquote>
+<script type="math/tex; mode=display">
+\color{red}\begin{array}{cccccl}
+\text { IF } & E_{1} & \text { THEN } & H, & \mathrm{CF}_{1} & \left(C F_{1}=\left\{c_{11}, c_{12}, \cdots, c_{1 n}\right\}\right) \\
+\text { IF } & E_{2} & \text { THEN } & H, & \mathrm{CF}_{2} & \left(C F_{2}=\left\{c_{21}, c_{22}, \cdots, c_{2 n}\right\}\right) \\
+& & & \cdots \cdots & \\
+\text { IF } & E_{m} & \text { THEN } & H, & \mathrm{CF}_{m} & \left(C F_{m}=\left\{c_{m 1}, c_{m 2}, \cdots, c_{m n}\right\}\right)
+\end{array}</script></blockquote>
+<p>如果这些规则相互独立地支持结论 $ H $ 的成立, 可以先计算：</p>
+<blockquote>
+<script type="math/tex; mode=display">
+\color{red}m_{i}\left(\left\{a_{1}\right\},\left\{a_{2}\right\}, \cdots,\left\{a_{m}\right\}\right)=\left(f\left(E_{i}\right) \cdot c_{i 1}, f\left(E_{i}\right) \cdot c_{i 2}, \cdots, f\left(E_{i}\right) \cdot c_{i m}\right) \quad(i=1,2, \cdots, m)</script></blockquote>
+<p>然后根据前面介绍的求正交和的方法, 对这些 $ m_{i} $ 求正交和, 以组合所有规则对结论 $ H $ 的支持。一旦累加的正交和 $ m(H) $ 计算出来, 就可以计算 $ \operatorname{Bel}(H) 、 P l(H) 、 f(H) $ 。</p>
+<blockquote>
+<p>例题：</p>
+<p><img src="D:/文档/md文件/人工智能导论/第五章 不确定性推理.assets/image-20220701092032206.png" alt="image-20220701092032206"></p>
+<p>答案：<br>$f(A)=0.832$</p>
+</blockquote>
+<h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><blockquote>
+<ol>
+<li><p>不确定推理的概念是什么？为什么要采用不确定推理？</p>
+</li>
+<li><p>不确定推理中需要解决的基本问题是什么？  </p>
+</li>
+<li><p>设有三个独立的结论 $ H_{1} 、 H_{2} 、 H_{3} $ 及两个独立的证据 $ E_{1} 、 E_{2} $, 它们的先验概率和条 件概率分别为:</p>
+</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{array}{lll}
+   P\left(H_{1}\right)=0.4, & P\left(H_{2}\right)=0.3, & P\left(H_{3}\right)=0.3 \\
+   P\left(E_{1} \mid H_{1}\right)=0.5, & P\left(E_{1} \mid H_{2}\right)=0.3, & P\left(E_{1} \mid H_{3}\right)=0.5 \\
+   P\left(E_{2} \mid H_{1}\right)=0.7, & P\left(E_{2} \mid H_{2}\right)=0.9, & P\left(E_{2} \mid H_{3}\right)=0.1
+   \end{array}</script><p>利用概率方法求出:     </p>
+<p>(1) 当只有证据 $ E_{1} $ 出现时, $ P\left(H_{1} \mid E_{1}\right) 、 &gt;P\left(H_{2} \mid E_{1}\right) $ 及 $ P\left(H_{3} \mid E_{1}\right) $ 的值; 并&gt;说   明 $ E_{1} $ 的出现 对 $ H_{1} 、 H_{2} 、 H_{3} $ 的影响。<br>(2) 当 $ E_{1} $ 和 $ E_{2} $ 同时出现时, $ P\left(H_{1} \mid E_{1}, E_{2}\right) 、 P\left(H_{2} \mid E_{1}, E_{2}\right) $ 及 $ P\left(H_{3} \mid E_{1}, E_{2}\right) $ 的值; 并说明 $ E_{1} $ 和 $ E_{2} $ 同时出现对 $ H_{1} 、 H_{2} 、 H_{3} $ 的影响。</p>
+<ol>
+<li>设有规则:</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{array}{lcclc}
+   R_{1}: \text { IF } & E_{1} & \text { THEN } & (400,1) & H \\
+   R_{2}: \text { IF } & E_{2} & \text { THEN } & (60,1) & H
+   \end{array}</script><p>   已知证据 $ E_{1} $ 和 $ E_{2} $ 必然发生, 并且 $ P(H)=0.04 $, 求 $ H $ 的后验概率。</p>
+<ol>
+<li>设有规则:</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{array}{lllll}
+   R_{1}: \text { IF } & E_{1} & \text { THEN } & (65,0.01) \quad H \\
+   R_{2}: \text { IF } & E_{2} & \text { THEN } & (300,0.0001) \quad H
+   \end{array}</script><p>   已知: $ P\left(E_{1} \mid S_{1}\right)=0.5, P\left(E_{2} \mid        S_{2}\right)=0.2, P\left(E_{1}\right)=0.1, P\left(E_{2}\right)=0.03, P(H)=0.01  $ 。 求: $ P\left(H \mid S_{1}, S_{2}\right) $ 。</p>
+<ol>
+<li><p>设有如下规则：</p>
+<p>$ R_{1}: $ IF $ \quad E_{1} \quad $ THEN $ \quad H(0.8) $<br>$ R_{2}: $ IF $ \quad E_{2} \quad $ THEN $ H(0.6) $<br>$ R_{3}: $ IF $ \quad E_{3} \quad $ THEN $ H(-0.5) $<br>$ R_{4}: \mathrm{IF} \quad E_{4} \quad \operatorname{AND}       &gt;\quad\left(E_{5}\right. $ OR $ \left.E_{6}\right) \quad \mathrm{THEN} \quad &gt;E_{1}(0.7) $<br>$ R_{5}: \mathrm{IF} \quad E_{7} \quad $ AND $ \quad E_{8} $ THEN $ E_{3}&gt;(0.9) $<br>且已知</p>
+<p>$\mathrm{CF}\left(E_{2}\right)=0.8, \mathrm{CF}\left(E_{4}\right)=0.5, \mathrm{CF}\left(E_{5}\right)=0.6, \quad \mathrm{CF}\left(E_{6}\right)=0.7, \\\mathrm{CF}\left(E_{7}\right)=0.6, \mathrm{CF}\left(E_{8}\right)=0.9$</p>
+<p>求 $ H $ 的综合可信度 $ \mathrm{CF}(H) $ 。</p>
+<ol>
+<li>已知 $ f\left(E_{1}\right)=0.6, f\left(E_{2}\right)=0.8,|\Omega|=20, E_{1} \wedge E_{2} \rightarrow H, H=\left\{h_{1}, h_{2}\right\},\left(c_{1}, c_{2}\right)=(0.5,0.3) $, 计算 $ f(H) $ 。</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">DLR</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/12/02/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">http://example.com/2022/12/02/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">梦幻星语</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/12/02/t1/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">t1</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/web/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DLR</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">第五章 不确定性推理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">不确定性推理概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">概率方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%86%E6%A6%82%E7%8E%87%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.1.</span> <span class="toc-text">逆概率方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A7%82%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">主观贝叶斯方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.3.1.</span> <span class="toc-text">规则的不确定性表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E6%8D%AE%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.3.2.</span> <span class="toc-text">证据的不确定性表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86"><span class="toc-number">1.3.3.</span> <span class="toc-text">不确定性推理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA%E4%B8%8D%E7%A1%AE%E5%AE%9A%E7%9A%84%E5%90%88%E6%88%90%E7%AE%97%E6%B3%95"><span class="toc-number">1.3.4.</span> <span class="toc-text">结论不确定的合成算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E8%AE%BA"><span class="toc-number">1.4.</span> <span class="toc-text">确定性推论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BF%A1%E5%BA%A6%E2%AD%90"><span class="toc-number">1.4.1.</span> <span class="toc-text">可信度⭐</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E4%BF%A1%E5%BA%A6%E5%AE%9A%E4%B9%89"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">可信度定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E4%BF%A1%E5%BA%A6%E7%9A%84%E6%80%A7%E8%B4%A8%E2%AD%90"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">可信度的性质⭐</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CF%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.4.2.</span> <span class="toc-text">CF模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E8%A1%A8%E7%A4%BA-1"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">规则的不确定性表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E8%AF%81%E6%8D%AE%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E8%AE%A1%E7%AE%97"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">组合证据的不确定性计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E7%9A%84%E6%8E%A8%E7%90%86"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">不确定性的推理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%96%B9%E6%B3%95%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="toc-number">1.4.2.4.</span> <span class="toc-text">确定性方法的说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%81%E6%8D%AE%E7%90%86%E8%AE%BA"><span class="toc-number">1.5.</span> <span class="toc-text">证据理论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E6%8D%AE%E7%90%86%E8%AE%BA%E7%9A%84%E5%BD%A2%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.5.1.</span> <span class="toc-text">证据理论的形式描述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E5%88%86%E9%85%8D%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">概率分配函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E4%BB%BB%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">信任函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.1.3.</span> <span class="toc-text">似然函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E4%BB%BB%E5%87%BD%E6%95%B0%E5%92%8C%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0%E7%9A%84%E6%80%A7%E8%B4%A8"><span class="toc-number">1.5.1.4.</span> <span class="toc-text">信任函数和似然函数的性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E5%88%86%E9%85%8D%E5%87%BD%E6%95%B0%E7%9A%84%E6%AD%A3%E4%BA%A4%E5%92%8C"><span class="toc-number">1.5.1.5.</span> <span class="toc-text">概率分配函数的正交和</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E6%8D%AE%E7%90%86%E8%AE%BA%E7%9A%84%E6%8E%A8%E7%90%86%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.5.2.</span> <span class="toc-text">证据理论的推理模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E6%A6%82%E7%8E%87%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">类概率函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E6%8D%AE%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E8%A1%A8%E7%A4%BA-1"><span class="toc-number">1.5.3.</span> <span class="toc-text">证据的不确定性表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E8%AF%81%E6%8D%AE%E7%9A%84%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E8%AE%A1%E7%AE%97-1"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">组合证据的不确定性计算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A0%E9%A2%98"><span class="toc-number">1.6.</span> <span class="toc-text">习题</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/02/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" title="人工智能"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="人工智能"/></a><div class="content"><a class="title" href="/2022/12/02/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" title="人工智能">人工智能</a><time datetime="2022-12-02T15:53:27.000Z" title="发表于 2022-12-02 23:53:27">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/02/t1/" title="t1"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="t1"/></a><div class="content"><a class="title" href="/2022/12/02/t1/" title="t1">t1</a><time datetime="2022-12-02T15:28:30.000Z" title="发表于 2022-12-02 23:28:30">2022-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/02/hello-world/" title="Hello World"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/12/02/hello-world/" title="Hello World">Hello World</a><time datetime="2022-12-02T14:27:51.530Z" title="发表于 2022-12-02 22:27:51">2022-12-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022  <i id="heartbeat" class="fa fas fa-heartbeat"></i> DLR</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div><link rel="stylesheet" href="https://fastly.jsdelivr.net/gh/HCLonely/images@master/others/heartbeat.min.css"></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script defer src="/js/light.js"></script><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" data-title="本站采用多线部署，主线路托管于Vercel" title=""><img src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&amp;logo=Vercel" alt=""/></a><a class="github-badge" target="_blank" href="https://dashboard.4everland.org/" style="margin-inline:5px" data-title="本站采用多线部署，备用线路托管于4EVERLAND" title=""><img src="https://img.shields.io/badge/Hosted-4EVERLAND-22DDDD?style=flat&amp;logo=IPFS" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://www.fomal.cc/static/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>
