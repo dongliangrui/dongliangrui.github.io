@@ -18,12 +18,12 @@ function createtime() {
     c = s < 18 && s >= 9 ? 
     `<img class='boardsign' src='https://img.shields.io/badge/D%E5%B0%8F%E5%B1%8B-%E4%B8%8A%E7%8F%AD%E6%91%B8%E9%B1%BC%E4%B8%AD-brightgreen' 
     title='距离月入25k也就还差一个大佬带我~'>
-    <br> 本站已经运行了 ${i} 天 ${s} 小时 ${g} 分 ${b} 秒 
+    <br> 本站已经运行了 ${i} 天 ${s} 小时 ${g} 分 ${b} 秒啦
     <i id="heartbeat" class='fas fa-heartbeat'></i> 
     <br> 看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨ ` : 
     `<img class='boardsign' src='https://img.shields.io/badge/D%E5%B0%8F%E5%B1%8B-%E6%89%93%E7%83%8A%E4%BC%91%E6%81%AF%E5%95%A6-blue' 
     title='下班了就该开开心心的玩耍，嘿嘿~'>
-    <br> 本站居已经运行了 ${i} 天 ${s} 小时 ${g} 分 ${b} 秒 
+    <br> 本站已经运行了 ${i} 天 ${s} 小时 ${g} 分 ${b} 秒啦
     <i id="heartbeat" class='fas fa-heartbeat'></i> 
     <br> 看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨ `, 
     document.getElementById("workboard") && (document.getElementById("workboard").innerHTML = c)
